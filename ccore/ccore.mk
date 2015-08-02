@@ -7,7 +7,7 @@ CC = g++
 LD = g++
 
 # Toolchain arguments.
-CFLAGS = -MMD -MP -std=gnu++0x -fPIC -c 
+CFLAGS = -O3 -MMD -MP -std=gnu++0x -fPIC -c 
 LFLAGS = -static-libstdc++ -std=gnu++0x -shared
 
 # Project sources

@@ -43,6 +43,8 @@ sync_network::sync_network(const unsigned int size, const double weight_factor, 
 {
 	weight = weight_factor;
 
+    m_callback_solver = &sync_network::adapter_phase_kuramoto;
+
 	std::random_device                      device;
 	std::default_random_engine              generator(device());
 	std::uniform_real_distribution<double>	phase_distribution(0.0, 2.0 * pi());
@@ -68,6 +70,11 @@ sync_network::sync_network(const unsigned int size, const double weight_factor, 
 
 
 sync_network::~sync_network() { }
+
+
+void sync_network::set_callback_solver(sync_callback_solver solver) {
+    m_callback_solver = solver;
+}
 
 
 double sync_network::sync_order() const {
