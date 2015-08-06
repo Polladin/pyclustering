@@ -98,9 +98,8 @@ class kmeans:
             while (changes > stop_condition):
                 self.__clusters = self.__update_clusters();
                 updated_centers = self.__update_centers();  # changes should be calculated before asignment
-             
-                #changes = max([euclidean_distance(self.__centers[index], updated_centers[index]) for index in range(len(self.__centers))]);        # Slow solution
-                changes = max([euclidean_distance_sqrt(self.__centers[index], updated_centers[index]) for index in range(len(self.__centers))]);    # Fast solution
+
+                changes = max([euclidean_distance_sqrt(self.__centers[index], updated_centers[index]) for index in range(len(updated_centers))]);    # Fast solution
                  
                 self.__centers = updated_centers;
 
@@ -151,7 +150,10 @@ class kmeans:
                     dist_optim = dist;
              
             clusters[index_optim].append(index_point);
-             
+        
+        # If cluster is not able to capture object it should be removed
+        clusters = [cluster for cluster in clusters if len(cluster) > 0];
+        
         return clusters;
     
     
