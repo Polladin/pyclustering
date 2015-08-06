@@ -1,0 +1,7 @@
+Change notes for 0.5.dev1 (start Jul 18, 2015)
+
+Corrected bugs:
+- Bug with callback methods in ccore library in syncnet (ccore.syncnet) and hsyncnet (ccore.hsyncnet) that may lead to loss of accuracy.
+
+- Bug with division by zero in kmeans algorithm (ccore.kmeans, pyclustering.cluster.kmeans) when cluster after center updating is not able to capture object.
+  See: https://github.com/annoviko/pyclustering/issues/238
