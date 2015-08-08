@@ -256,10 +256,6 @@ class kdtree:
         
         """
         
-        assert node is not None;
-        candidates = [self.find_minimal_node(child, discriminator) for child in self.children(node) if child is not None];
-        candidates = candidates + [ node ];
-        
         min_key = lambda cur_node: cur_node.data[discriminator];
 
         stack = [];
