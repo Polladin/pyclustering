@@ -261,7 +261,25 @@ class kdtree:
         candidates = candidates + [ node ];
         
         min_key = lambda cur_node: cur_node.data[discriminator];
-        return min(candidates, key = min_key);    
+
+        stack = [];
+        candidates = [];
+        isFinished = False;
+        # candidates.append(node)
+        # stack.append(node)
+        while isFinished is False:
+            if node is not None:
+                stack.append(node);
+                node = node.left;
+            else:
+                if len(stack) != 0:
+                    node = stack.pop();
+                    candidates.append(node);
+                    node = node.right;
+                else:
+                    isFinished = True;
+
+        return min(candidates, key = min_key);
     
     
     def find_node(self, point, cur_node = None):
