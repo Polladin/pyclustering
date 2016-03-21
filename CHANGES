@@ -12,5 +12,8 @@ CORRECTED BUGS:
 - Bug with incorrect clustering in case of the same elements in cure algorithm (pyclustering.cluster.cure).
   See: https://github.com/annoviko/pyclustering/pull/239
   
-- Bug with execution fail in case of wrong number of initial medians and in case of the same objects with several initial medians (pyclustering.kmedians.kmedians).
+- Bug with execution fail in case of wrong number of initial medians and in case of the same objects with several initial medians (pyclustering.cluster.kmedians).
   See: https://github.com/annoviko/pyclustering/issues/256
+
+- But with execution fail in case of clustering the same objects (pyclustering.cluster.kmedoids).
+  See: https://github.com/annoviko/pyclustering/issues/272

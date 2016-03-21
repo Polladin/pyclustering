@@ -23,6 +23,7 @@
 
 """
 
+import math;
 import unittest;
 
 from pyclustering.cluster.kmedoids import kmedoids;
@@ -77,9 +78,9 @@ class Test(unittest.TestCase):
     def templateClusterAllocationOneDimensionData(self):
         input_data = [ [random()] for i in range(10) ] + [ [random() + 3] for i in range(10) ] + [ [random() + 5] for i in range(10) ] + [ [random() + 8] for i in range(10) ];
         
-        kmedians_instance = kmedoids(input_data, [ 5, 15, 25, 35 ], 0.025);
-        kmedians_instance.process();
-        clusters = kmedians_instance.get_clusters();
+        kmedoids_instance = kmedoids(input_data, [ 5, 15, 25, 35 ], 0.025);
+        kmedoids_instance.process();
+        clusters = kmedoids_instance.get_clusters();
         
         assert len(clusters) == 4;
         for cluster in clusters:
@@ -87,6 +88,41 @@ class Test(unittest.TestCase):
                 
     def testClusterAllocationOneDimensionData(self):
         self.templateClusterAllocationOneDimensionData();
+
+
+    def templateClusterAllocationTheSameObjects(self, number_objects, number_clusters, ccore_flag = False):
+        value = random();
+        input_data = [ [value] ] * number_objects;
+        
+        initial_medoids = [];
+        step = math.floor(number_objects / number_clusters);
+        for i in range(number_clusters):
+            initial_medoids.append(i * step);
+        
+        kmedoids_instance = kmedoids(input_data, initial_medoids);
+        kmedoids_instance.process();
+        clusters = kmedoids_instance.get_clusters();
+        
+        object_mark = [False] * number_objects;
+        allocated_number_objects = 0;
+        
+        for cluster in clusters:
+            for index_object in cluster: 
+                assert (object_mark[index_object] == False);    # one object can be in only one cluster.
+                
+                object_mark[index_object] = True;
+                allocated_number_objects += 1;
+            
+        assert (number_objects == allocated_number_objects);    # number of allocated objects should be the same.
+
+    def testClusterAllocationTheSameObjectsOneInitialCenter(self):
+        self.templateClusterAllocationTheSameObjects(20, 1, False);
+
+    def testClusterAllocationTheSameObjectsTwoInitialCenters(self):
+        self.templateClusterAllocationTheSameObjects(15, 2, False);
+
+    def testClusterAllocationTheSameObjectsThreeInitialCenters(self):
+        self.templateClusterAllocationTheSameObjects(25, 3, False);
 
 
 if __name__ == "__main__":
