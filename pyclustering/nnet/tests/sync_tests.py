@@ -26,7 +26,7 @@
 import unittest;
 
 from pyclustering.nnet import *;
-from pyclustering.nnet.sync import sync_network;
+from pyclustering.nnet.sync import sync_network, sync_dynamic;
 
 from scipy import pi;
 
@@ -189,7 +189,23 @@ class Test(unittest.TestCase):
     
     def testSevenOscillatorDynamicByCore(self):
         self.templateDynamicSimulationConvergence(7, 1, conn_type.ALL_TO_ALL, True);
+
+
+    def testOutputDynamicAroundZero(self):
+        phases = [ [ 0.01, 0.02, 0.04, 6.27, 6.28, 6.25, 0.03] ];
+        time = [ 10.0 ];
         
+        output_sync_dynamic = sync_dynamic(phases, time, None);
+        assert len(output_sync_dynamic.allocate_sync_ensembles(0.2)) == 1;
+        assert len(output_sync_dynamic.allocate_sync_ensembles(0.1)) == 1;
+        
+        phase = [ [ 1.02, 1.05, 1.52, 5.87, 5.98, 5.14] ];
+        
+        output_sync_dynamic = sync_dynamic(phases, time, None);
+        
+        assert len(output_sync_dynamic.allocate_sync_ensembles(3.0)) == 1;
+        assert len(output_sync_dynamic.allocate_sync_ensembles(2.0)) == 1;
+
 
 if __name__ == "__main__":
     unittest.main();

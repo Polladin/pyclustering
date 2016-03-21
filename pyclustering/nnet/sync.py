@@ -139,7 +139,11 @@ class sync_dynamic:
             cluster_allocated = False;
             for cluster in clusters:
                 for neuron_index in cluster:
-                    if ( (last_state[i] < (last_state[neuron_index] + tolerance)) and (last_state[i] > (last_state[neuron_index] - tolerance)) ):
+                    last_state_shifted = abs(last_state[i] - 2 * pi);
+                    
+                    if ( ( (last_state[i] < (last_state[neuron_index] + tolerance)) and (last_state[i] > (last_state[neuron_index] - tolerance)) ) or
+                         ( (last_state_shifted < (last_state[neuron_index] + tolerance)) and (last_state_shifted > (last_state[neuron_index] - tolerance)) ) ):
+                        
                         cluster_allocated = True;
                         cluster.append(i);
                         break;
