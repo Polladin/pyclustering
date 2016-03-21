@@ -8,8 +8,8 @@ CC = g++
 LD = g++
 
 # Toolchain arguments.
-CFLAGS = -MMD -MP -std=gnu++0x -fPIC -c -isystem tools/
-LDFLAGS = -std=gnu++0x -pthread tools/gtest/lib/linux/libgtest.a
+CFLAGS = -O3 -MMD -MP -std=gnu++0x -fPIC -c -isystem tools/
+LDFLAGS = -O3 -std=gnu++0x -pthread tools/gtest/lib/linux/libgtest.a
 
 # Project sources
 SOURCES += utcore/main.cpp
